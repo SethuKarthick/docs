@@ -1,0 +1,1978 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Knowledge Store API",
+      "description": "Knowledge Store API",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/health": {
+        "get": {
+          "summary": "Health",
+          "description": "Health check endpoint for the API.",
+          "operationId": "health_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/": {
+        "get": {
+          "summary": "Root",
+          "description": "Root endpoint of the API.",
+          "operationId": "root__get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/documents": {
+        "get": {
+          "tags": [
+            "documents"
+          ],
+          "summary": "List Documents",
+          "description": "List all documents.",
+          "operationId": "List_Documents_v1_api_documents_get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "skip",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 0,
+                "title": "Skip"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 100,
+                "title": "Limit"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/#/components/schemas/DocumentResponse"
+                    }
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "documents"
+          ],
+          "summary": "Create Document",
+          "description": "Create a new document.",
+          "operationId": "Create_Document_v1_api_documents_post",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/documents/{document_id}": {
+        "get": {
+          "tags": [
+            "documents"
+          ],
+          "summary": "Get Document By Id",
+          "description": "Get a document by its ID.",
+          "operationId": "Get_Document_by_ID_v1_api_documents__document_id__get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "document_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Document Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Document not found with the given ID",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Document not found with the given ID"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "documents"
+          ],
+          "summary": "Delete Document",
+          "description": "Delete a document by its ID.",
+          "operationId": "Delete_Document_v1_api_documents__document_id__delete",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "document_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Document Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/documents/upload": {
+        "post": {
+          "tags": [
+            "documents"
+          ],
+          "summary": "Upload Document",
+          "description": "Upload a file to create a new document.\n\nThe file will be stored in a location (provided by a Storage Service - could be S3, or local or others).\nA new DB entry will be created with the file name, type, and location.",
+          "operationId": "Upload_Document_v1_api_documents_upload_post",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_Upload_Document_v1_api_documents_upload_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ]
+        }
+      },
+      "/v1/api/stores/{store_id}/document_loaders": {
+        "get": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "List Document Loaders",
+          "description": "List all document loaders.",
+          "operationId": "List_Document_Loaders_v1_api_stores__store_id__document_loaders_get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            },
+            {
+              "name": "skip",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 0,
+                "title": "Skip"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 100,
+                "title": "Limit"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Create Document Loader",
+          "description": "Create a new document loader.",
+          "operationId": "Create_Document_Loader_v1_api_stores__store_id__document_loaders_post",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentLoaderCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/stores/{store_id}/document_loaders/{document_loader_id}": {
+        "get": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Get Document Loader By Id",
+          "description": "Get a document loader by its ID.",
+          "operationId": "Get_Document_Loader_by_ID_v1_api_stores__store_id__document_loaders__document_loader_id__get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "document_loader_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Document Loader Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Delete Document Loader",
+          "description": "Delete a document loader by its ID.",
+          "operationId": "Delete_Document_Loader_v1_api_stores__store_id__document_loaders__document_loader_id__delete",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "document_loader_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Document Loader Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Update Document Loader",
+          "description": "Update a document loader.",
+          "operationId": "Update_Document_Loader_v1_api_stores__store_id__document_loaders__document_loader_id__put",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "document_loader_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Document Loader Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentLoaderCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DocumentLoaderResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/stores": {
+        "get": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "List Document Stores",
+          "description": "List all document stores. Allows 'skip' and 'limit' parameters for pagination.",
+          "operationId": "List_Document_Stores_v1_api_stores_get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "skip",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 0,
+                "title": "Skip"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 100,
+                "title": "Limit"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/DocumentStoreResponse"
+                    },
+                    "title": "Response List Document Stores V1 Api Stores Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Create A New Document Store.",
+          "description": "Create a new document store.",
+          "operationId": "Create_a_new_Document_Store__v1_api_stores_post",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentStoreCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DocumentStoreResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/stores/{store_id}": {
+        "get": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Get Document Store By Id",
+          "description": "Get a document store by its ID.",
+          "operationId": "Get_Document_Store_by_ID_v1_api_stores__store_id__get",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DocumentStoreResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Store not found with the given ID",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Store not found with the given ID"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Process Document Store And Vectorize Documents",
+          "description": "Process a document store by its ID and vectorize its documents.",
+          "operationId": "Process_Document_Store_and_Vectorize_Documents_v1_api_stores__store_id__post",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Delete Document Store By Id",
+          "description": "Delete a document store by its ID.",
+          "operationId": "Delete_Document_Store_by_ID_v1_api_stores__store_id__delete",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Update Document Store",
+          "description": "Update Document Store.",
+          "operationId": "Update_Document_Store_v1_api_stores__store_id__put",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentStoreCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DocumentStoreResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/stores/{store_id}/search": {
+        "post": {
+          "tags": [
+            "stores"
+          ],
+          "summary": "Search Indexed Documents In Document Store",
+          "description": "Search indexed documents in Document Store",
+          "operationId": "Search_indexed_documents_in_Document_Store_v1_api_stores__store_id__search_post",
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "store_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Store Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreSearchRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/StoreSearchResponse"
+                    },
+                    "title": "Response Search Indexed Documents In Document Store V1 Api Stores  Store Id  Search Post"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/api/parsers": {
+        "get": {
+          "tags": [
+            "parsers"
+          ],
+          "summary": "List All Parsers",
+          "operationId": "list_all_parsers_v1_api_parsers_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/Parser"
+                    },
+                    "type": "array",
+                    "title": "Response List All Parsers V1 Api Parsers Get"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ]
+        }
+      },
+      "/v1/api/parsers/types": {
+        "get": {
+          "tags": [
+            "parsers"
+          ],
+          "summary": "Get Parser Types",
+          "operationId": "get_parser_types_v1_api_parsers_types_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "title": "Response Get Parser Types V1 Api Parsers Types Get"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ]
+        }
+      },
+      "/v1/api/embeddings": {
+        "get": {
+          "tags": [
+            "embeddings"
+          ],
+          "summary": "List All Embeddings",
+          "operationId": "list_all_embeddings_v1_api_embeddings_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/Embeddings"
+                    },
+                    "type": "array",
+                    "title": "Response List All Embeddings V1 Api Embeddings Get"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ]
+        }
+      },
+      "/v1/api/splitters": {
+        "get": {
+          "tags": [
+            "splitters"
+          ],
+          "summary": "List All Splitters",
+          "description": "List all supported Splitters in the system.",
+          "operationId": "list_all_splitters_v1_api_splitters_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/Splitter"
+                    },
+                    "type": "array",
+                    "title": "Response List All Splitters V1 Api Splitters Get"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "APIKeyQuery": []
+            },
+            {
+              "APIKeyHeader": []
+            },
+            {
+              "APIKeyCookie": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Body_Upload_Document_v1_api_documents_upload_post": {
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File"
+            }
+          },
+          "type": "object",
+          "required": [
+            "file"
+          ],
+          "title": "Body_Upload_Document_v1_api_documents_upload_post"
+        },
+        "ConfigOption": {
+          "properties": {
+            "type": {
+              "type": "string",
+              "title": "Type",
+              "description": "Data type of the config option"
+            },
+            "default": {
+              "title": "Default",
+              "description": "Default value for the option"
+            },
+            "description": {
+              "type": "string",
+              "title": "Description",
+              "description": "Description of what the config option is for"
+            }
+          },
+          "type": "object",
+          "required": [
+            "type",
+            "default",
+            "description"
+          ],
+          "title": "ConfigOption"
+        },
+        "DocumentCreate": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "type": {
+              "$ref": "#/components/schemas/DocumentType"
+            },
+            "location": {
+              "type": "string",
+              "title": "Location"
+            },
+            "metadata": {
+              "type": "object",
+              "title": "Metadata"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "type",
+            "location",
+            "metadata"
+          ],
+          "title": "DocumentCreate",
+          "description": "This model is to create a document in the system.\nThis can only be used if the document is a Web URL, or a local file in the server.\nIf uploading a new file, use the DocumentUpload model."
+        },
+        "DocumentLoaderCreate": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Name",
+              "description": "Name for the document loader."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Description",
+              "description": "Description of the document loader."
+            },
+            "documentId": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Documentid",
+              "description": "The ID of the document this document loader will load."
+            },
+            "parser": {
+              "$ref": "#/components/schemas/ParserDTO",
+              "description": "The loader that will load the document associated with this document loader, with its configuration."
+            },
+            "splitter": {
+              "$ref": "#/components/schemas/SplitterDTO",
+              "description": "The text splitter that will split the document, along with its required configuration."
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "description",
+            "documentId",
+            "parser",
+            "splitter"
+          ],
+          "title": "DocumentLoaderCreate",
+          "description": "Request payload to create a new document loader."
+        },
+        "DocumentLoaderResponse": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Name",
+              "description": "Name for the document loader."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Description",
+              "description": "Description of the document loader."
+            },
+            "storeId": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Storeid",
+              "description": "The Document Store which contains this Document Loader"
+            },
+            "document": {
+              "$ref": "#/components/schemas/DocumentResponse",
+              "description": "The document this Document Loader will load"
+            },
+            "parser": {
+              "$ref": "#/components/schemas/ParserDTO",
+              "description": "The parser (loader) to use to load the document"
+            },
+            "splitter": {
+              "$ref": "#/components/schemas/SplitterDTO",
+              "description": "The splitter to be used to split the loaded document"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "description",
+            "storeId",
+            "document",
+            "parser",
+            "splitter"
+          ],
+          "title": "DocumentLoaderResponse",
+          "description": "Response payload for a document loader."
+        },
+        "DocumentResponse": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "type": {
+              "type": "string",
+              "title": "Type"
+            },
+            "location": {
+              "type": "string",
+              "title": "Location"
+            },
+            "metadata": {
+              "type": "object",
+              "title": "Metadata"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "type",
+            "location",
+            "metadata"
+          ],
+          "title": "DocumentResponse",
+          "description": "Represents a document in the system.\n\nThis model defines the structure and properties of a document, including its\nID, name, and type."
+        },
+        "DocumentStoreCreate": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Name",
+              "description": "Name of the document store."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Description",
+              "description": "Description of the document store."
+            },
+            "embedding": {
+              "$ref": "#/components/schemas/EmbeddingsDTO",
+              "description": "Embedding to use to vectorise the documents"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "description",
+            "embedding"
+          ],
+          "title": "DocumentStoreCreate",
+          "description": "Schema for creating a new Document Store."
+        },
+        "DocumentStoreResponse": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id",
+              "description": "A unique ID for this Document Store"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Name",
+              "description": "Name of the document store."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Description",
+              "description": "Description of the document store."
+            },
+            "embedding": {
+              "$ref": "#/components/schemas/EmbeddingsDTO",
+              "description": "Embedding to use to vectorise the documents"
+            },
+            "loaders": {
+              "items": {
+                "$ref": "#/components/schemas/DocumentLoaderResponse"
+              },
+              "type": "array",
+              "title": "Loaders",
+              "description": "List of document loaders linked to this store."
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Createdat"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Updatedat"
+            },
+            "status": {
+              "$ref": "#/components/schemas/StoreStatus",
+              "default": "EMPTY"
+            },
+            "vectorStoreConfig": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Vectorstoreconfig"
+            },
+            "recordManagerConfig": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Recordmanagerconfig"
+            },
+            "totalChars": {
+              "type": "integer",
+              "title": "Totalchars",
+              "default": 0
+            },
+            "totalChunks": {
+              "type": "integer",
+              "title": "Totalchunks",
+              "default": 0
+            },
+            "processResult": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Processresult",
+              "description": "Failure message from processing the documents in the store (if any)",
+              "default": ""
+            },
+            "collectionName": {
+              "type": "string",
+              "title": "Collectionname",
+              "description": "Name of the Vector Store Collection in which the documents in this store as saved in.",
+              "default": ""
+            },
+            "contentPayloadKey": {
+              "type": "string",
+              "title": "Contentpayloadkey",
+              "description": "The name of the field which has the content in the vector store",
+              "default": "page_content"
+            },
+            "metadataPayloadKey": {
+              "type": "string",
+              "title": "Metadatapayloadkey",
+              "description": "The name of the field which has the metadata in the vector store",
+              "default": "metadata"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "description",
+            "embedding",
+            "createdAt",
+            "updatedAt"
+          ],
+          "title": "DocumentStoreResponse",
+          "description": "A Document Store is a top-level entity that contains multiple documents."
+        },
+        "DocumentType": {
+          "type": "string",
+          "enum": [
+            "pdf",
+            "csv",
+            "docx",
+            "xlsx",
+            "web"
+          ],
+          "title": "DocumentType"
+        },
+        "Embeddings": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Name",
+              "description": "The name of the embeddings with a minimum length of 10 characters."
+            },
+            "supportedEmbeddingModels": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Supportedembeddingmodels",
+              "description": "List of supported embedding models for this embeddings."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 15,
+              "title": "Description",
+              "description": "A description of the embeddings with a minimum length of 15 characters."
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "supportedEmbeddingModels"
+          ],
+          "title": "Embeddings",
+          "description": "Represents embeddings supported in the system.\n\nThis model defines the structure and properties of an embedding, including its\nname, description, and type."
+        },
+        "EmbeddingsDTO": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 10,
+              "title": "Name",
+              "description": "The name of the embeddings with a minimum length of 10 characters."
+            },
+            "embeddingModel": {
+              "type": "string",
+              "minLength": 8,
+              "title": "Embeddingmodel",
+              "description": "Embedding model to use with for the embeddings"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "embeddingModel"
+          ],
+          "title": "EmbeddingsDTO",
+          "description": "Embeddings DTO model for request and response."
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "HealthResponse": {
+          "properties": {
+            "appHealth": {
+              "type": "string",
+              "title": "Apphealth",
+              "description": "The health of the application",
+              "default": "Server up and running"
+            },
+            "dbHealth": {
+              "type": "string",
+              "title": "Dbhealth",
+              "description": "The health of the database",
+              "default": "Connected"
+            }
+          },
+          "type": "object",
+          "title": "HealthResponse"
+        },
+        "Message": {
+          "properties": {
+            "message": {
+              "type": "string",
+              "title": "Message"
+            }
+          },
+          "type": "object",
+          "required": [
+            "message"
+          ],
+          "title": "Message"
+        },
+        "Parser": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 5,
+              "title": "Name",
+              "description": "The name of the parser with a minimum length of 5 characters."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 15,
+              "title": "Description",
+              "description": "An optional description of the parser with a minimum length of 15 characters."
+            },
+            "parser_type": {
+              "$ref": "#/components/schemas/ParserType",
+              "description": "The type of the parser (e.g., PDF, CSV, DOCX, etc.)."
+            },
+            "config_options": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ConfigOption"
+              },
+              "type": "object",
+              "title": "Config Options",
+              "description": "The configuration options for the parser. Example: {'field_name': {'type': 'data_type[int,str,bool]', 'default': 'default_value for field. Use ... for required fields'}}"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "parser_type",
+            "config_options"
+          ],
+          "title": "Parser",
+          "description": "Represents a parser in the system.\n\nThis model defines the structure and properties of a parser, including its\nname, description, and type."
+        },
+        "ParserDTO": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 5,
+              "title": "Name",
+              "description": "The name of the parser with a minimum length of 5 characters."
+            },
+            "parserType": {
+              "$ref": "#/components/schemas/ParserType",
+              "description": "The type of the parser (e.g., PDF, CSV, DOCX, etc.)."
+            },
+            "config": {
+              "type": "object",
+              "title": "Config",
+              "description": "The configuration for the parser."
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "parserType"
+          ],
+          "title": "ParserDTO"
+        },
+        "ParserType": {
+          "type": "string",
+          "enum": [
+            "pdf",
+            "csv",
+            "docx",
+            "web"
+          ],
+          "title": "ParserType"
+        },
+        "ProcessRequest": {
+          "properties": {
+            "cleanup": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "incremental",
+                    "full"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cleanup",
+              "description": "Cleanup mode for when processing the documents. Refer https://python.langchain.com/docs/how_to/indexing/#deletion-modes",
+              "default": "incremental"
+            },
+            "shouldContextualize": {
+              "type": "boolean",
+              "title": "Shouldcontextualize",
+              "description": "Whether to use contextual retrieval",
+              "default": false
+            },
+            "additionalContextPrompt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 4096
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Additionalcontextprompt",
+              "description": "Additional context to use for contextual retrieval"
+            }
+          },
+          "type": "object",
+          "title": "ProcessRequest",
+          "description": "Request payload for \"Process Store\" endpoint"
+        },
+        "Splitter": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 5,
+              "title": "Name",
+              "description": "The name of the splitter with a minimum length of 5 characters."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 15,
+              "title": "Description",
+              "description": "A required description of the splitter with a minimum length of 15 characters."
+            },
+            "configOptions": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ConfigOption"
+              },
+              "type": "object",
+              "title": "Configoptions",
+              "description": "The configuration options for the splitter."
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "description",
+            "configOptions"
+          ],
+          "title": "Splitter",
+          "description": "Represents a splitter in the system.\n\nThis model defines the structure and properties of a splitter, including its\nname, description, and configuration options."
+        },
+        "SplitterDTO": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 5,
+              "title": "Name",
+              "description": "The name of the splitter with a minimum length of 5 characters."
+            },
+            "config": {
+              "type": "object",
+              "title": "Config",
+              "description": "The configuration for the splitter."
+            }
+          },
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "title": "SplitterDTO"
+        },
+        "StoreSearchRequest": {
+          "properties": {
+            "searchTerm": {
+              "type": "string",
+              "minLength": 3,
+              "title": "Searchterm",
+              "description": "The term or phrase to search in the document store"
+            },
+            "searchType": {
+              "type": "string",
+              "enum": [
+                "similarity",
+                "mmr"
+              ],
+              "title": "Searchtype",
+              "description": "Search Method",
+              "default": "similarity"
+            },
+            "topK": {
+              "type": "integer",
+              "exclusiveMaximum": 20,
+              "exclusiveMinimum": 0,
+              "title": "Topk",
+              "description": "The number of relevant documents to retrieve",
+              "default": 4
+            }
+          },
+          "type": "object",
+          "required": [
+            "searchTerm"
+          ],
+          "title": "StoreSearchRequest",
+          "description": "Request payload to search in document store."
+        },
+        "StoreSearchResponse": {
+          "properties": {
+            "content": {
+              "type": "string",
+              "title": "Content",
+              "description": "Chunk of data from the documents in the store that match the search term"
+            },
+            "metadata": {
+              "type": "object",
+              "title": "Metadata",
+              "description": "Additional metadata about the retrieved chunk"
+            }
+          },
+          "type": "object",
+          "required": [
+            "content",
+            "metadata"
+          ],
+          "title": "StoreSearchResponse",
+          "description": "Response payload for store search"
+        },
+        "StoreStatus": {
+          "type": "string",
+          "enum": [
+            "EMPTY",
+            "UPSERTED",
+            "IN_PROGRESS",
+            "FAILED"
+          ],
+          "title": "StoreStatus"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      },
+      "securitySchemes": {
+        "APIKeyQuery": {
+          "type": "apiKey",
+          "in": "query",
+          "name": "api_key"
+        },
+        "APIKeyHeader": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-API-KEY"
+        },
+        "APIKeyCookie": {
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "api_key"
+        }
+      }
+    }
+  }

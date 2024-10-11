@@ -38,6 +38,12 @@
       "url": "https://mintlify.com/docs"
     },
     {
+      "name": "API Reference",
+      "openapi": "/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    },
+    {
       "name": "Community",
       "icon": "slack",
       "url": "https://mintlify.com/community"
@@ -81,11 +87,74 @@
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete"
       ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/health",
+        "api-reference/root"
+      ]
+    },
+    {
+      "group": "Documents",
+      "pages": [
+        "api-reference/documents/list-documents",
+        "api-reference/documents/create-document",
+        "api-reference/documents/get-document-by-id",
+        "api-reference/documents/delete-document",
+        "api-reference/documents/upload-document"
+      ]
+    },
+    {
+      "group": "Stores",
+      "pages": [
+        "api-reference/stores/list-document-loaders",
+        "api-reference/stores/create-document-loader",
+        "api-reference/stores/get-document-loader-by-id",
+        "api-reference/stores/update-document-loader",
+        "api-reference/stores/delete-document-loader",
+        "api-reference/stores/list-document-stores",
+        "api-reference/stores/create-a-new-document-store",
+        "api-reference/stores/get-document-store-by-id",
+        "api-reference/stores/update-document-store",
+        "api-reference/stores/process-document-store-and-vectorize-documents",
+        "api-reference/stores/delete-document-store-by-id",
+        "api-reference/stores/search-indexed-documents-in-document-store"
+      ]
+    },
+    {
+      "group": "Parsers",
+      "pages": [
+        "api-reference/parsers/list-all-parsers",
+        "api-reference/parsers/get-parser-types"
+      ]
+    },
+    {
+      "group": "Embeddings",
+      "pages": [
+        "api-reference/embeddings/list-all-embeddings"
+      ]
+    },
+    {
+      "group": "Splitters",
+      "pages": [
+        "api-reference/splitters/list-all-splitters"
+      ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://linkedin.com/company/mintlify"
+  },
+  "api": {
+    "baseUrl": "http://localhost:8000/", 
+    "auth": {
+        "method": "key",
+        "name": "x-api-key"
+    },
+    "playground": {
+      "disableProxy": true
+    }
   }
 }
